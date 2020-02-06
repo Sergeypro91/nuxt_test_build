@@ -6,7 +6,7 @@
       ref="form"
       @submit.native.prevent="onSubmit"
     >
-      <h1>Login</h1>
+      <h2>Login</h2>
 
       <el-form-item label="User name" prop="login">
         <el-input v-model.trim="controls.login"></el-input>
@@ -62,9 +62,36 @@ export default {
     }
   },
 
+  mounted() {
+    const { message } = this.$route.query
+
+    switch (message) {
+      case 'login':
+        this.$message.error('Pleas Login first!')
+        break
+      case 'logout':
+        this.$message.success('You have bean Logout!')
+        break
+    }
+  },
+
   methods: {
     onSubmit() {
-      console.log('Submit!')
+      this.$refs.form.validate(async valid => {
+        if (valid) {
+          this.loading = true
+          try {
+            const formData = {
+              login: this.controls.login,
+              password: this.controls.password
+            }
+            await this.$store.dispatch('auth/login', formData)
+            this.$router.push('/admin')
+          } catch (e) {
+            this.loading = false
+          }
+        }
+      })
     }
   }
 }

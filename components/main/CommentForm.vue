@@ -5,7 +5,7 @@
     ref="form"
     @submit.native.prevent="onSubmit"
   >
-    <h1>Leave a Comment!</h1>
+    <h2>Leave a Comment!</h2>
 
     <el-form-item label="Activity name" prop="name">
       <el-input v-model.trim="controls.name"></el-input>
