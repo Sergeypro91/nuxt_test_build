@@ -67,6 +67,7 @@ export default {
       this.$refs.form.validate(async valid => {
         if (valid) {
           this.loading = true
+
           try {
             const formData = {
               login: this.controls.login,

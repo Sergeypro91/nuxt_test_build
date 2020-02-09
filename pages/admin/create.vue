@@ -8,7 +8,7 @@
     <h1>Create new Post</h1>
 
     <el-form-item label="Enter Post name" prop="title">
-      <el-input v-model.trim="controls.title"></el-input>
+      <el-input v-model="controls.title"></el-input>
     </el-form-item>
 
     <el-form-item label="Text in format .md or .html" prop="text">
