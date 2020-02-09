@@ -42,7 +42,7 @@ module.exports.update = async (req, res) => {
   }
 
   try {
-    const post = await Post.finOneAndUppdate(
+    const post = await Post.findOneAndUpdate(
       {
         _id: req.params.id
       },

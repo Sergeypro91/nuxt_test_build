@@ -1,18 +1,18 @@
 <template>
   <el-card shadow="hower" :body-style="{ padding: 0 }" class="post">
     <header slot="header" class="post-header">
-      <h3>Post title</h3>
-      <small>{{ new Date().toLocaleString() }}</small>
+      <h3>{{ post.title }}</h3>
+      <small>{{ new Date(post.date).toLocaleString() }}</small>
     </header>
 
     <div class="post-body">
-      <img src="@/assets/img/macdisplay.jpg" alt="post img" class="post-img" />
+      <img :src="post.imageUrl" alt="post img" class="post-img" />
     </div>
 
     <footer class="post-footer">
       <el-button round @click="openPoast">Открыть</el-button>
       <span>
-        <i class="el-icon-chat-line-square">12</i>
+        <i class="el-icon-chat-line-square">{{ post.comments.length }}</i>
       </span>
     </footer>
   </el-card>
@@ -20,10 +20,16 @@
 
 <script>
 export default {
+  props: {
+    post: {
+      type: Object,
+      required: true
+    }
+  },
+
   methods: {
     openPoast() {
-      console.log('Open Post!')
-      const id = 'test-id'
+      const id = this.post._id
       this.$router.push(`/post/${id}`)
     }
   }
@@ -41,8 +47,6 @@ export default {
 }
 .post-img {
   width: 100%;
-}
-.post-body {
 }
 .post-footer {
   padding: 1rem;

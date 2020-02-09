@@ -2,39 +2,38 @@
   <article class="post">
     <header class="post-header">
       <div class="post-title">
-        <h1>Post title</h1>
+        <h1>{{ post.title }}</h1>
         <nuxt-link to="/">
           <i class="el-icon-back"></i>
         </nuxt-link>
       </div>
 
       <div class="post-info">
-        <small>{{ new Date().toLocaleString() }}</small>
+        <small>{{ new Date(post.date).toLocaleString() }}</small>
 
         <small>
-          <i class="el-icon-view">42</i>
+          <i class="el-icon-view">{{ post.views }}</i>
         </small>
       </div>
 
       <div class="post-image">
-        <img src="@/assets/img/macdisplay.jpg" alt="post-image" />
+        <img :src="post.imageUrl" alt="post-image" />
       </div>
     </header>
 
     <main class="post-content">
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, ipsa!
-        Eaque mollitia, repellat quidem, facilis porro recusandae alias aliquam
-        velit unde iusto atque est facere consequatur corrupti voluptates,
-        perspiciatis quasi.
-      </p>
+      <vue-markdown>{{ post.text }}</vue-markdown>
     </main>
 
     <footer>
       <AppCommentForm v-if="canAddComment" @created="createCommentHandler" />
 
-      <div class="comments" v-if="true">
-        <AppComment v-for="comment in 4" :key="comment" :comment="comment" />
+      <div class="comments" v-if="post.comments.length">
+        <AppComment
+          v-for="comment in post.comments"
+          :key="comment"
+          :comment="comment"
+        />
       </div>
       <div class="text-center" v-else>Комментариев нет</div>
     </footer>
@@ -46,7 +45,19 @@ import AppComment from '@/components/main/Comment'
 import AppCommentForm from '@/components/main/CommentForm'
 
 export default {
-  components: { AppComment, AppCommentForm },
+  validate({ params }) {
+    return Boolean(params.id)
+  },
+
+  async asyncData({ store, params }) {
+    const post = await store.dispatch('post/fetchById', params.id)
+
+    await store.dispatch('post/addView', post)
+
+    return {
+      post: { ...post, views: ++post.views }
+    }
+  },
 
   data() {
     return {
@@ -54,15 +65,13 @@ export default {
     }
   },
 
-  validate({ params }) {
-    return Boolean(params.id)
-  },
-
   methods: {
     createCommentHandler() {
       this.canAddComment = false
     }
-  }
+  },
+
+  components: { AppComment, AppCommentForm }
 }
 </script>
 
