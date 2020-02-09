@@ -12,7 +12,8 @@
     <footer class="post-footer">
       <el-button round @click="openPoast">Открыть</el-button>
       <span>
-        <i class="el-icon-chat-line-square">{{ post.comments.length }}</i>
+        <i class="el-icon-chat-line-square"></i>
+        {{ post.comments.length }}
       </span>
     </footer>
   </el-card>
