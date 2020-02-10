@@ -61,6 +61,12 @@ export default {
 
   middleware: ['admin-auth'],
 
+  head() {
+    return {
+      title: `Post create | ${process.env.appName}`
+    }
+  },
+
   data() {
     return {
       image: null,

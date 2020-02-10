@@ -29,6 +29,12 @@
 export default {
   layout: 'empty',
 
+  head() {
+    return {
+      title: `Login | ${process.env.appName}`
+    }
+  },
+
   data() {
     return {
       loading: false,

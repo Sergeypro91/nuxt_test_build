@@ -27,6 +27,12 @@ export default {
 
   middleware: ['admin-auth'],
 
+  head() {
+    return {
+      title: `Analytic | ${process.env.appName}`
+    }
+  },
+
   async asyncData({ store }) {
     const { views, comments } = await store.dispatch('post/getAnalytics')
 

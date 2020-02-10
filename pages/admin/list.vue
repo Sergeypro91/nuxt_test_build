@@ -40,6 +40,12 @@ export default {
 
   middleware: ['admin-auth'],
 
+  head() {
+    return {
+      title: `Posts redact | ${process.env.appName}`
+    }
+  },
+
   async asyncData({ store }) {
     const posts = await store.dispatch('post/fetchAdmin')
 

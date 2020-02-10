@@ -54,7 +54,7 @@ export default {
 
   head() {
     return {
-      title: `Post | ${this.post.title}`
+      title: `${this.post.title} | ${process.env.appName}`
     }
   },
 

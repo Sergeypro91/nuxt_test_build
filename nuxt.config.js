@@ -44,6 +44,10 @@ module.exports = {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {},
+
+  env: {
+    appName: 'SSR Blog'
+  },
   /*
    ** Build configuration
    */

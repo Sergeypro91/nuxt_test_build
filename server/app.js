@@ -10,11 +10,11 @@ const keys = require('./keys')
 
 const app = express()
 
-// mongoose.set('useFindAndModify', false)
-// mongoose.set('useCreateIndex', true)
-
 mongoose
-  .connect(keys.MONGO_URI)
+  .set('useFindAndModify', false)
+  .set('useUnifiedTopology', true)
+  .set('useCreateIndex', true)
+  .connect(keys.MONGO_URI, { useNewUrlParser: true })
   .then(() => console.log('MongoDB connected...'))
   .catch(error => console.error(error))
 

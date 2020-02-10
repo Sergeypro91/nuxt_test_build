@@ -29,6 +29,12 @@ export default {
 
   middleware: ['admin-auth'],
 
+  head() {
+    return {
+      title: `Users create | ${process.env.appName}`
+    }
+  },
+
   data() {
     return {
       loading: false,
